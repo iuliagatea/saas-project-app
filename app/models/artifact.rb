@@ -12,7 +12,7 @@ class Artifact < ActiveRecord::Base
   private
   
   def upload_to_s3
-    s3 = Aws::S3::Resource.new(region:'us-east-2')
+    s3 = Aws::S3::Resource.new(region:'us-east-1')
     tenant_name = Tenant.find(Thread.current[:tenant_id]).name
     obj = s3.bucket(ENV['S3_BUCKET']).object("#{tenant_name}/#{upload.original_filename}")
     obj.upload_file(upload.path, acl:'public-read')
